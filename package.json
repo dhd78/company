@@ -1,0 +1,46 @@
+{
+  "name": "dsh-task-dispatch",
+  "version": "0.1.1",
+  "description": "任务派送插件：白名单总管/调度以 fire-and-forget 方式派工给在册顶层部长会话，并记录可审计台账。",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhd78/company.git"
+  },
+  "homepage": "https://github.com/dhd78/company/tree/dsh-task-dispatch#readme",
+  "bugs": {
+    "url": "https://github.com/dhd78/company/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "release-notes.md",
+    ".gitignore"
+  ],
+  "engines": {
+    "dsh": "0.2.2-rc.1",
+    "node": ">=24.21.0 <25"
+  },
+  "scripts": {
+    "test": "node --test tests/unit.test.mjs tests/integration.test.mjs tests/regressions.test.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

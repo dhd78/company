@@ -1,9 +1,31 @@
-﻿node_modules/
+# 依赖与构建产物
+node_modules/
 .pnpm-store/
+coverage/
+
+# 运行数据（%DSH_HOME%/task-dispatch/ 下的台账、配置、花名册）
+%DSH_HOME%/
+task-dispatch/
+dispatches.jsonl
+dispatches.corrupt.jsonl
+index.json
+task-ledger.md
+
+# 临时与日志
 *.log
+logs/
+.cache/
+*.tmp
+*.tmp-*
+*.bak
+tests/tmp/
+
+# 环境与凭据
 .env
 .env.*
+
+# 编辑器与系统
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
-tmp/
-
