@@ -10,6 +10,7 @@ import { join } from "node:path";
 import { makeHarness } from "./helpers/harness.mjs";
 import { loadConfig } from "../lib/config.js";
 import { loadRoster } from "../lib/roster.js";
+import { nowMs } from "../lib/time.js";
 
 async function withHarness(t) {
   const harness = await makeHarness();
@@ -59,4 +60,22 @@ test("T-FIX-02 长 note 累积后单行不超 8KB，任务仍可更新", async (
   const record = h.runtime.store.findByTaskId("TSK-20261119-01");
   assert.ok(record.notes.length >= 1);
   assert.ok(Buffer.byteLength(JSON.stringify(record.notes), "utf8") <= 4096, "notes 总量应被裁剪");
+});
+
+test("T-FIX-03 ctx.now 在非请求作用域抛错时 nowMs 回退进程时钟", () => {
+  const throwingGetter = {
+    get now() {
+      throw new Error("outside request scope");
+    },
+  };
+  const throwingFunction = {
+    now() {
+      throw new Error("outside request scope");
+    },
+  };
+  for (const ctx of [throwingGetter, throwingFunction]) {
+    const ms = nowMs(ctx);
+    assert.ok(Number.isFinite(ms));
+    assert.ok(Math.abs(ms - Date.now()) < 5000);
+  }
 });

@@ -1,17 +1,15 @@
-# dsh-task-dispatch 0.1.1 发布说明
+# dsh-task-dispatch 0.1.2 发布说明
 
-- 版本：0.1.1
+- 版本：0.1.2
 - 许可：MIT
 - 形态：DSH Host 插件 + 4 个 Agent 工具；无 Client 半、无 UI
 - 运行环境：DSH 桌面 0.2.2-rc.1（宿主核心 44.7.0）、Node.js >= 24.21.0 < 25
 
 ## 一、变更
 
-- 修复 `config.json` / `roster.json` 带 UTF-8 BOM 时无法加载的问题。
-- 修复 `notes` 累积导致单条台账记录超过 8KB 后任务无法更新的问题；备注总量上限 4096 字节。
-- 许可证确定为 MIT；包元数据设置为公开发布（`private: false`、`publishConfig.access = public`）。
-- 明确 `dispatch_task` 返回时延口径：写入台账并投递消息后立即返回；`wake.timeoutMs` 默认 2000ms，可配置。
-- 新增 `tests/regressions.test.mjs`，覆盖 BOM 兼容与备注上限。
+- 修复真实宿主工具调用中 `ctx.now()` 在非请求作用域抛错，导致 `dispatch_status`（按 department 查询）返回“内部错误”的问题；`nowMs` 现在捕获异常并回退到进程时钟。
+- 新增回归测试 `T-FIX-03`（`ctx.now` getter/函数抛错时回退）。
+- 其余行为与 0.1.1 一致：BOM 兼容、备注总量 4096 字节上限、MIT 许可、公开发布元数据。
 
 ## 二、兼容性
 
@@ -32,14 +30,14 @@
 3. 在 `%DSH_HOME%/task-dispatch/` 创建 `config.json` 与 `roster.json`；配置样例见 README。
 4. 重启测试实例，确认 4 个工具已注册。
 
-安装前备份原有的 `config.json` 与 `cordis.patch.yml`，并保留上一版本目录作为回滚点。
+安装前备份原有的 `config.json` 与 `cordis.patch.yml`，并保留 0.1.1 版本目录作为回滚点。
 
 ## 四、卸载
 
 1. 停止测试实例。
 2. 删除测试 profile 中的插件目录及 `cordis.patch.yml` 中的 `task-dispatch` 条目。
 3. 保留 `%DSH_HOME%/task-dispatch/`：台账、配置与花名册不随插件卸载删除。
-4. 卸载后 `dispatches.jsonl` 可独立解析；清理前先备份整个目录。
+4. 清理前先备份整个目录。
 
 ## 五、已知限制
 
@@ -55,13 +53,13 @@
 
 ## 六、回滚
 
-还原上一版本插件目录与 `config.json` / `cordis.patch.yml` 备份，保留台账目录；版本号只增不减。
+还原 0.1.1 插件目录与 `config.json` / `cordis.patch.yml` 备份，保留台账目录；版本号只增不减。
 
 ## 七、验证
 
-- 测试：默认 23 项通过、3 项跳过；开启集成后 26 项全部通过。
+- 测试：默认 27 项中 24 项通过、3 项跳过；开启集成后 27 项全部通过。
 - 清单：23 个对象文件逐文件字节数与 SHA256 校验通过。
-- 真实实例：非活跃顶层会话唤醒、卸载/重启后台账保留均通过。
+- 真实实例：非活跃顶层会话唤醒、卸载/重启后台账保留、`dispatch_status` 按 department 查询通过。
 
 ## 八、许可
 

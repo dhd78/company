@@ -2,7 +2,7 @@
 
 DSH Host 插件。白名单总管或调度以 fire-and-forget 方式向在册的顶层部长会话派送任务指针，并提供回执、进度报告、状态查询与可审计的本地台账。
 
-- 版本：0.1.1
+- 版本：0.1.2
 - 许可：MIT
 - 运行环境：DSH 桌面 0.2.2-rc.1（宿主核心 44.7.0）、Node.js >= 24.21.0 < 25
 - 形态：Host 插件 + 4 个 Agent 工具；无 Client 半、无 UI、无第三方运行时依赖
@@ -40,7 +40,7 @@ node --version   # v24.21.0
 node --test tests/unit.test.mjs tests/integration.test.mjs tests/regressions.test.mjs
 ```
 
-默认 26 项中 23 项通过、3 项跳过；设置 `DSH_DISPATCH_INTEGRATION=1` 后 26 项全部通过。测试仅写入系统临时目录，不联网，不修改生产台账。
+默认 27 项中 24 项通过、3 项跳过；设置 `DSH_DISPATCH_INTEGRATION=1` 后 27 项全部通过。测试仅写入系统临时目录，不联网，不修改生产台账。
 
 ## 配置
 

@@ -1,6 +1,6 @@
 {
   "name": "dsh-task-dispatch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "任务派送插件：白名单总管/调度以 fire-and-forget 方式派工给在册顶层部长会话，并记录可审计台账。",
   "private": false,
   "license": "MIT",

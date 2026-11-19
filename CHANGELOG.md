@@ -2,6 +2,20 @@
 
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/) 与语义化版本。
 
+## [0.1.2] - 2026-11-19
+
+### Fixed
+
+- 真实宿主工具调用中 `ctx.now()` 在非请求作用域抛错，导致 `dispatch_status`（仅按 `department` 查询时）返回“内部错误”。`nowMs` 现在捕获异常并回退到进程时钟。
+
+### Added
+
+- `tests/regressions.test.mjs` 新增 `T-FIX-03`：`ctx.now` getter/函数抛错时回退进程时钟。
+
+### Notes
+
+- 兼容性：无接口、配置或数据格式变更；建议从 0.1.1 升级。
+
 ## [0.1.1] - 2026-11-19
 
 ### Fixed
