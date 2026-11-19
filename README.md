@@ -19,7 +19,7 @@ DSH Host 插件。白名单总管或调度以 fire-and-forget 方式向在册的
 
 建议在测试 profile 中安装。
 
-1. 将本包放入测试 profile 的 `node_modules/dsh-task-dispatch/`，或在源码目录执行 `npm pack` 后安装 tarball。
+1. 从仓库 Release 下载 `dsh-task-dispatch-0.1.2.tgz` 与 `.sha256`，校验后安装；或将本包放入测试 profile 的 `node_modules/dsh-task-dispatch/`。
 2. 在测试 profile 的 `cordis.patch.yml` 中加入：
 
    ```yaml
